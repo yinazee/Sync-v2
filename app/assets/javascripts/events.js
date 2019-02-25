@@ -1,5 +1,14 @@
+$(function() {
+  console.log('event.js is loaded...')
+  listenForClick()
+};
+
+
+
+
+
 function listenForClick() {
-  $('button#post-data').on('click', function(event) {
+  $('button#event-data').on('click', function(event) {
     event.preventDefault()
     getEvent()
   })
@@ -15,7 +24,7 @@ function listenForClick() {
     debugger
     let myEvent = new Event(data[0])
     let myEventHtml = myEvent.eventHTML()
-    document.getElementById('ajax-post').innerHTML += myEventHTML
+    document.getElementById('ajax-event').innerHTML += myEventHTML
   })
 }
 
