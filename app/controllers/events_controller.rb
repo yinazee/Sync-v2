@@ -10,13 +10,15 @@ class EventsController < ApplicationController
 
   def index
     # @invites = @user.guest.events.order()
+    # @events = Event.all
     @invites = @user.guest.events.sort_by { |obj| obj.created_at }
+
     @events = @user.host.events
-    @event = Event.all
     respond_to do |f|
       f.html {render :index}
-      f.json {render json: @events}
+      f.json {render json: @events && @invites}
     end
+
 end
 
 
