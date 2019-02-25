@@ -1,9 +1,7 @@
 $(function() {
   console.log('event.js is loaded...')
   listenForClick()
-};
-
-
+});
 
 
 
@@ -13,20 +11,20 @@ function listenForClick() {
     getEvent()
   })
 
-  Function getEvents() {
-  $.ajax({
-    url: 'http://localhost:3000/users/2/events',
-    method: 'get'
-    type: 'json'
-  }).done(function(data) {
-
-    console.log("the data is: ", data)
-    debugger
-    let myEvent = new Event(data[0])
-    let myEventHtml = myEvent.eventHTML()
-    document.getElementById('ajax-event').innerHTML += myEventHTML
-  })
-}
+//   Function getEvents() {
+//   $.ajax({
+//     url: 'http://localhost:3000/users/2/events',
+//     method: 'get'
+//     type: 'json'
+//   }).done(function(data) {
+//
+//     console.log("the data is: ", data)
+//     debugger
+//     let myEvent = new Event(data[0])
+//     let myEventHtml = myEvent.eventHTML()
+//     document.getElementById('ajax-event').innerHTML += myEventHTML
+//   })
+// }
 
 }
 class Event {
