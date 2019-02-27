@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 
 $(function() {
   console.log('event.js is loaded...')
@@ -6,23 +6,24 @@ $(function() {
 });
 
 function listenForClick() {
-  $('button#event-data').on('click', function(event) {
+  $('button#events-data').on('click', function(event) {
     event.preventDefault()
-    getEvent()
+    getEvents()
   })
 
   function getEvents() {
+    // var current_user = ${@current_user.id}
   $.ajax({
     url: 'http://localhost:3000/users/2/events',
     method: 'get',
-    type: 'json'
+    dataType: 'json'
   }).done(function(data) {
 
     console.log("the data is: ", data)
-    // debugger
+    debugger
     let myEvent = new Event(data[0])
     let myEventHtml = myEvent.eventHTML()
-    document.getElementById('ajax-event').innerHTML += myEventHTML
+    document.getElementById('ajax-events').innerHTML += myEventHTML
   })
 }
 
@@ -38,7 +39,7 @@ class Event {
 
 
 Event.prototype.newEventForm = function() {
-  return (`
+   (`
   <strong>New Event</strong>
   <form>
     <input id='event-name' type='text' name='name'></input><br>
