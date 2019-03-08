@@ -58,6 +58,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rack_session_access"
   gem "pry"
+  gem "rb-readline"
 end
 
 group :development do

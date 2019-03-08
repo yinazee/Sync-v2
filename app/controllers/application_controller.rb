@@ -14,9 +14,5 @@ class ApplicationController < ActionController::Base
 
   def current_user #should return previous user or look for current user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
-    # respond_to do |f|
-    #   # f.html {render :current_user}
-    #   f.json {render json: @current_user }
-    # end
   end
 end

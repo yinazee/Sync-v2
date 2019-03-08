@@ -9,6 +9,8 @@ class EventsController < ApplicationController
   end
 
   def index
+    @event = Event.new
+    @users = User.all
     # @invites = @user.guest.events.order()
     # @events = Event.all
     @invites = @user.guest.events.sort_by { |obj| obj.created_at }

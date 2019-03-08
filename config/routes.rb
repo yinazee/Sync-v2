@@ -9,8 +9,6 @@ Rails.application.routes.draw do
 
   get '/auth/facebook/callback' => 'sessions#create'
 
-
-
   resources :users do
     resources :events do
       collection do
@@ -19,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :event_guests
+
 
 
 

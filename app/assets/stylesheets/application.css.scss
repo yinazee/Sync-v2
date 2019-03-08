@@ -196,3 +196,9 @@ input::placeholder {
   margin: 70px auto;
   text-align: center;
 }
+
+#new-event-modal {
+  form, input {
+    margin: 0px;
+  }
+}

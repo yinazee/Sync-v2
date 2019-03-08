@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :destroy]
+  before_action :set_user, only: [:show]
 
   def index
-    redirect_to root_path
+    @users = User.all
+    # respond_to do |format|
+    #   format.html {render :index}
+    #   format.json  { render json: @users}
+    # end
   end
 
   def new
@@ -29,10 +33,13 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(current_user.id)
-    redirect_to root_path unless session[:user_id] #redirect to artists pat
+    # redirect_to root_path unless session[:user_id]
+    @user = User.find(current_user.id)
+    # render json: @user, status: 200
+
   end
 
-# user will not be able to delete their profile 
+# user will not be able to delete their profile because they have been invited to an event
   # def destroy
   #   if current_user.id == @user.id
   #     @event_guests = EventGuest.find_by(guest_id: current_user.guest.id)
