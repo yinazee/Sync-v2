@@ -12,13 +12,13 @@ Rails.application.routes.draw do
   resources :users do
     resources :events do
       collection do
-        get 'test'
+        # get 'test'
       end
     end
   end
 
 
-
+  resources :event_guests
 
 
 

@@ -35,7 +35,6 @@
             <%= link_to "Hello, #{current_user.name.capitalize}", user_path(current_user), class: "navbar-brand" %>
             <%= link_to "My Events", user_events_path(current_user), class: "navbar-brand" %>
             <%= link_to "Log Out", logout_path, method: :post, class: "navbar-brand" %>
-            <%= link_to "All Events", users_path, method: :post, class: "navbar-brand" %>
             <% end %>
 
 
@@ -48,8 +47,6 @@
     </div>
 
 
-
-
     <!-- content -->
     <div class="container" role="main">
       <%= yield :form_errors %>
@@ -57,10 +54,6 @@
     </div>
   </body>
 
-  <button id='events-data'>Get Events</button>
-    <div id='ajax-events'>[events...]</div>
-    <br>
-    <br>
   <footer>
     <div class="footer">
       <a href='https://github.com/yinazee' target="_blank"> Design by Yina Zhu </a>

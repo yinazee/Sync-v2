@@ -11,18 +11,14 @@ class EventsController < ApplicationController
   def index
     @event = Event.new
     @users = User.all
-    # @invites = @user.guest.events.order()
-    # @events = Event.all
     @invites = @user.guest.events.sort_by { |obj| obj.created_at }
     @events = @user.host.events
       respond_to do |format|
         format.html {render :index}
-        format.json  { render :json => {:invites => @invites,
-                                    :events => @events }}
+        format.json  { render :json => {:events => @events,
+                                        :invites => @invites}}
       end
     end
-
-
 
   def new
     @event = Event.new
@@ -49,10 +45,15 @@ class EventsController < ApplicationController
     end
 
   def show
+    @event = Event.find(params[:id])
     @guests = @event.event_guests
     @invites = @user.guest.events
     @eventguest = EventGuest.find_by(guest_id: current_user.guest.id, event_id: params[:id])
     @truehost = @host.user.id == current_user.id
+    respond_to do |format|
+      format.html {render :show}
+      format.json  { render :json => {:event => @event, :guests => @guests}}
+    end
   end
 
   def edit
