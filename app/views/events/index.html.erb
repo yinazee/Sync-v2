@@ -25,7 +25,7 @@
     <tr><!--this will list the details of the column name-->
       <% @events.each do |event| %>
         <% if event.event_guests.any? {|guest| !guest.rsvp }%>
-          <td><%= link_to "#{event.name}", user_event_path(@user, event), id: "ajax-event", class: "ajax-event"  %></td>
+          <td><%= link_to "#{event.name}", user_event_path(@user, event)%></td>
           <td><%= event.location %></td>
           <td><%= event.date.strftime("%b %d, %Y") %></td>
           <td><%= link_to "Edit", edit_user_event_path(@user, event) %></td>
@@ -34,11 +34,31 @@
         <% end %>
       <% end %>
 
-    <tr>
-      <td><p id="ajax-event"></p></td>
-    </tr>
-
-
+  </tbody>
+</table><br>
+<!-----------------------Ajax Events----------------------->
+<table class="table">
+  <tbody>
+<tr>
+  <p><strong>Ajax Events:</strong></p>
+  <td><p id="ajax-events"></p></td>
+    <td><strong>Name</strong></td>
+    <td><strong>Location</strong></td>
+    <td><strong>When</strong></td>
+    <td><strong>Edit</strong></td>
+    <td><strong>Delete</strong></td>
+</tr>
+<tr><!--this will list the details of the column name-->
+  <% @events.each do |event| %>
+    <% if event.event_guests.any? {|guest| !guest.rsvp }%>
+      <td><%= link_to "#{event.name}", user_event_path(@user, event, format: :json), id: "ajax-event", class: "ajax-event"  %></td>
+      <td><%= event.location %></td>
+      <td><%= event.date.strftime("%b %d, %Y") %></td>
+      <td><%= link_to "Edit", edit_user_event_path(@user, event) %></td>
+      <td><%= link_to "Delete", user_event_path(@user, event), method: :delete %></td>
+</tr>
+    <% end %>
+  <% end %>
   </tbody>
 </table><br>
 

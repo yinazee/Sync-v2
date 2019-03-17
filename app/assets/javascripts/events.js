@@ -6,8 +6,6 @@ $(function() {
 });
 
 
-
-
 //AJAX LINK For New Form//
 function listenForNewAjaxEventClick() {
   $('#ajax-new-event').on('click', function(event) {
@@ -16,17 +14,9 @@ function listenForNewAjaxEventClick() {
   });
 }
 
-// function listenForEvent() {
-//   $('.ajax-event').on('click', function(event) {
-//     console.log('you just hit event')
-//     event.preventDefault()
-//     getEvent()
-// });
-// };
-
 function getEvent() {
-  $(function() {
-  $("a.ajax-event").on("click", function(e){
+  // $(function() {
+  $("#ajax-events").on("click", function(e){
   console.log('you just hit the next level')
 
     $.ajax({
@@ -35,31 +25,17 @@ function getEvent() {
     }).done(function(response){
       console.log('the data is: ', response)
       debugger
-      let myEvent = new Event(response[4])
-      //       let myEventHtml = newEvent.eventHTML()
-      //       document.getElementById('ajax-event').innerHTML += myEventHtml
+      response.events.map(event => {
+        const newEvent = new Event(event)
+        const newEventHtml = newEvent.postHTML()
+        document.getElementById('ajax-event').innerHTML += myEventHtml
+      })
+
     })
    e.preventDefault()
   })
-});
+// });
 }
-
-  // var current_user = $('(not sure what to put here)').val()
-  // var current_event = $('not sure what to put here').val()
-  // $.ajax({
-  //   url: 'http://localhost:3000/users/' + current_user + '/events/' + 'current_event',
-  //   method: 'get',
-  //   dataType: 'json'
-  // }).done(function (data) {
-  //   console.log('the data is accessed', data)
-  //   debugger
-  //     console.log("the data is: ", data)
-  //       let myEvent = new Event(data[0])
-  //       let myEventHtml = newEvent.eventHTML()
-  //       document.getElementById('ajax-event').innerHTML += myEventHtml
-  //   })
-  // }
-
 
 class Event {
   constructor(obj) {
@@ -79,7 +55,23 @@ class Event {
     `)
   };
 }
+
+// Post.prototype.postHTML = function () {
+// 	let postComments = this.comments.map(comment => {
+// 		return (`
+// 			<p>${comment.content}</p>
+// 		`)
+// 	}).join('')
 //
+// 	return (`
+// 		<div class='post'>
+// 			<h3>${this.title}</h3>
+// 			<p>${this.content}</p>
+// 			<p>${postComments}</p>
+// 		</div>
+// 	`)
+// }
+
 
 //
 // add event listenr to
