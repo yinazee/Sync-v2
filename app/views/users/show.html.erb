@@ -5,4 +5,15 @@
   <div class="info">
     <p><h1><%= @user.name.capitalize %>'s Profile Page</h1></p>
     <p><h4><%= @user.email.downcase%></h4></p>
+
+
+    <p>  <%= link_to "Ajax Events You Created", user_events_path(current_user), id: "get-ajax-events" %> </p>
+    <div id="ajax-events">
+
+
+    
+
+    </div>
+
+
   </div>

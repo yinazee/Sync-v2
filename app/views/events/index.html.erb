@@ -6,10 +6,19 @@
 
 <h1>All Events</h1>
 
-<h3><%= link_to "Create New Event", new_user_event_path(@user) %></h3>
 <h3><%= link_to "Ajax New Event", new_user_event_path(@user), id: "ajax-new-event", class: "ajax-new-event" %></h3>
 
+<!----------------------------------------------->
+
 <p><strong>Events You Created:</strong></p>
+
+<p>  <%= link_to "Ajax Events You Created", user_events_path(current_user), id: "get-ajax-events" %> </p>
+<!-- <script>
+document.getElementById("ajax-events").innerHTML = eventObj.name + ", " + eventObj.location;
+</script> -->
+
+<div id="ajax-events">
+
 
 <table class="table">
   <tbody>
@@ -36,34 +45,9 @@
 
   </tbody>
 </table><br>
-<!-----------------------Ajax Events----------------------->
-<table class="table">
-  <tbody>
-<tr>
-  <p><strong>Ajax Events:</strong></p>
-  <td><p id="ajax-events"></p></td>
-    <td><strong>Name</strong></td>
-    <td><strong>Location</strong></td>
-    <td><strong>When</strong></td>
-    <td><strong>Edit</strong></td>
-    <td><strong>Delete</strong></td>
-</tr>
-<tr><!--this will list the details of the column name-->
-  <% @events.each do |event| %>
-    <% if event.event_guests.any? {|guest| !guest.rsvp }%>
-      <td><%= link_to "#{event.name}", user_event_path(@user, event, format: :json), id: "ajax-event", class: "ajax-event"  %></td>
-      <td><%= event.location %></td>
-      <td><%= event.date.strftime("%b %d, %Y") %></td>
-      <td><%= link_to "Edit", edit_user_event_path(@user, event) %></td>
-      <td><%= link_to "Delete", user_event_path(@user, event), method: :delete %></td>
-</tr>
-    <% end %>
-  <% end %>
-  </tbody>
-</table><br>
 
-<!-------------------------------------------------------------------->
-
+</div>
+<!-------------------------------------------------------->
 <p><strong>Your Events With All Guests Attending:</strong></p>
 
 <table class="table">

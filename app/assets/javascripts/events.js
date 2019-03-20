@@ -1,8 +1,12 @@
-
 $(function() {
   console.log('event.js is loaded...')
   listenForNewAjaxEventClick()
-  getEvent()
+    // $("#get-ajax-events").on("click", function(e) {
+    //   console.log("youre on it!")
+    //   e.preventDefault()
+    //
+    // })
+  getEvents()
 });
 
 
@@ -14,25 +18,25 @@ function listenForNewAjaxEventClick() {
   });
 }
 
-function getEvent() {
+function getEvents() {
   // $(function() {
-  $("#ajax-events").on("click", function(e){
+  $("#get-ajax-events").on("click", function(e){
   console.log('you just hit the next level')
-
+   e.preventDefault()
     $.ajax({
      method: "GET",
      url: `${this.href}.json`
     }).done(function(response){
       console.log('the data is: ', response)
-      debugger
-      response.events.map(event => {
-        const newEvent = new Event(event)
-        const newEventHtml = newEvent.postHTML()
-        document.getElementById('ajax-event').innerHTML += myEventHtml
+      //debugger
+      response.map(event => {
+        let myEvent = new Event(event)
+        let myEventHtml = myEvent.renderHTML()
+        document.getElementById('ajax-events').innerHTML += myEventHtml
       })
 
     })
-   e.preventDefault()
+
   })
 // });
 }
@@ -43,16 +47,17 @@ class Event {
     this.id = obj.id
     this.name = obj.name
     this.description = obj.description
+    this.renderHTML = function () {
+        return(`
+          <strong>New Event</strong>
+          <div>
+          <h3>${this.name}</h3>
+          <p>${this.description}</p>
+          </div>
+        `)
   };
 
-  static newEventData() {
-    return(`
-      <strong>New Event</strong>
-      <div>
-      <h3>${this.name}</h3>
-      <p>${this.description}</p>
-      </div>
-    `)
+
   };
 }
 

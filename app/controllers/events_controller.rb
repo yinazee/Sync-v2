@@ -8,24 +8,9 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
-  # def index
-  #   # @event = Event.new
-  #   # @users = User.all
-  #   @invites = @user.guest.events.sort_by { |obj| obj.created_at }
-  #   # @events = @user.host.events
-  #   # @events = Event.where(host_id: params[:user_id] )
-  #   @events = Event.all
-  #     respond_to do |format|
-  #       # format.html {render :index}
-  #       # format.json {render json: @events}
-  #       format.json {render json: @events }
-  #       # format.json  { render :json => {:events => @events, :invites => @invites}}
-  #     end
-  #   end
-
   def index
-  #   @event = Event.new
-  #   @users = User.all
+    @event = Event.new
+    @users = User.all
     @invites = @user.guest.events.sort_by { |obj| obj.created_at }
     @events = @user.host.events
   #     respond_to do |format|
@@ -34,7 +19,10 @@ class EventsController < ApplicationController
   #     end
   # @events = Event.find(params[:user_id]) if current_user
   # render json: @events
-  render :json => {:events => @events, :invites => @invites}
+     respond_to do |format|
+        format.html {render :index}
+        format.json  { render json: @events}
+      end
 
 
   end

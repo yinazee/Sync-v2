@@ -33,7 +33,7 @@
             <%= link_to 'Log in with Facebook!', '/auth/facebook', class: "navbar-brand"%>
           <% else %>
             <%= link_to "Hello, #{current_user.name.capitalize}", user_path(current_user), class: "navbar-brand" %>
-            <%= link_to "My Events", user_events_path(current_user), id: "ajax-events", class: "navbar-brand" %>
+            <%= link_to "My Events", user_events_path(current_user), class: "navbar-brand" %>
             <%= link_to "Log Out", logout_path, method: :post, class: "navbar-brand" %>
             <% end %>
 
