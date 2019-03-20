@@ -49,15 +49,12 @@ class Event {
     this.description = obj.description
     this.renderHTML = function () {
         return(`
-          <strong>New Event</strong>
           <div>
           <h3>${this.name}</h3>
           <p>${this.description}</p>
           </div>
         `)
   };
-
-
   };
 }
 
