@@ -36,7 +36,7 @@
     <tr><!--this will list the details of the column name-->
       <% @events.each do |event| %>
         <% if event.event_guests.any? {|guest| !guest.rsvp }%>
-          <td><%= link_to "#{event.name}", user_event_path(@user, event), class:"get-event-show"%></td>
+          <td><%= link_to "#{event.name}", user_event_path(@user, event), class:"get-event-show"%> </td>
           <td><%= event.location %></td>
           <td><%= event.date.strftime("%b %d, %Y") %></td>
           <td><%= link_to "Edit", edit_user_event_path(@user, event) %></td>

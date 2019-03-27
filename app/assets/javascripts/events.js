@@ -23,7 +23,6 @@ function getEvents() {
      url: `${this.href}.json`
     }).done(function(response){
       // console.log('the data is: ', response)
-
       response.map(event => {
         let myEvent = new Event(event)
         let myEventHtml = myEvent.renderHTML()
@@ -50,20 +49,7 @@ class Event {
   };
 }
 
-Event.prototype.renderHTML = function () {
-	let eventGuests = this.guests.map(guest => {
-		return (`
-			<p>${guest.name}</p>
-		`)
-	}).join('')
 
-	return (`
-		<div class='ajax-guests'>
-			<h3>${this.name}</h3>
-			<p>${this.email}</p>
-		</div>
-	`)
-}
 
 function getEventShow(id) {
   $(".get-event-show").on("click", function(e){
@@ -73,19 +59,43 @@ function getEventShow(id) {
       method: "GET",
       url: `${this.href}.json`
     }).done(function(response){
-      let guests =
-      response.values(event => {
-        let myEvent = new Event(event)
-        let myEventHtml = myEvent.renderHTML()
-        document.getElementById('ajax-events').innerHTML += myEventHtml
+
+      response.guests.map(function(guest) {
+        // console.log(guest.user.name)
+          let myGuest = new Guest(guest.user)
+          let myGuestHtml = myGuest.renderHTML()
+          document.getElementById('event-show').innerHTML += myGuestHtml
       })
     })
   })
 }
 
-myEvent.guests.forEach(function(guest) {
-    console.log(guest.user.name)
-})
+class Guest {
+  constructor(obj) {
+    this.id = obj.id
+    this.name = obj.name
+    this.email = obj.email
+    this.renderHTML = function () {
+        return(`
+          <div>
+          <p>${this.name}</p>
+          <p>${this.email}</p>
+          </div>
+        `)
+    };
+  };
+}
+
+Guest.prototype.renderHTML = function () {
+
+
+	return (`
+    <h4><strong>Guests<strong></h4>
+			<h3>${this.name}</h3>
+			<p>${this.email}</p>
+	`)
+}
+
 
         // $('#event-show').html('')
         // const parent = this.el.parentElement;
