@@ -6,19 +6,21 @@
 
 <h1>All Events</h1>
 
-
+<h4><%= link_to "Ajax New Event", new_user_event_path(@user), id: "ajax-new-event" %></h4>
 
 <!----------------------------------------------->
 
 <p><strong>Events You Created:</strong></p>
 
 <p>  <%= link_to "Ajax Events You Created", user_events_path(current_user), id: "get-ajax-events" %> </p>
-<!-- <script>
-document.getElementById("ajax-events").innerHTML = eventObj.name + ", " + eventObj.location;
-</script> -->
+
+<div class="ajax-just-created">
+
+</div>
 
 <div id="ajax-events">
 
+  </div>
 
 <table class="table">
   <tbody>
@@ -34,7 +36,7 @@ document.getElementById("ajax-events").innerHTML = eventObj.name + ", " + eventO
     <tr><!--this will list the details of the column name-->
       <% @events.each do |event| %>
         <% if event.event_guests.any? {|guest| !guest.rsvp }%>
-          <td><%= link_to "#{event.name}", user_event_path(@user, event)%></td>
+          <td><%= link_to "#{event.name}", user_event_path(@user, event), class:"get-event-show"%></td>
           <td><%= event.location %></td>
           <td><%= event.date.strftime("%b %d, %Y") %></td>
           <td><%= link_to "Edit", edit_user_event_path(@user, event) %></td>
@@ -46,7 +48,10 @@ document.getElementById("ajax-events").innerHTML = eventObj.name + ", " + eventO
   </tbody>
 </table><br>
 
+<div id="event-show">
+
 </div>
+
 <!-------------------------------------------------------->
 <p><strong>Your Events With All Guests Attending:</strong></p>
 
@@ -99,3 +104,21 @@ document.getElementById("ajax-events").innerHTML = eventObj.name + ", " + eventO
 
   </tbody>
 </table>
+
+<div class="modal fade" id="new-event-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Create New Event</h4>
+      </div>
+      <div class="modal-body">
+        <%= render 'form' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

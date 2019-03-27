@@ -13,18 +13,11 @@ class EventsController < ApplicationController
     @users = User.all
     @invites = @user.guest.events.sort_by { |obj| obj.created_at }
     @events = @user.host.events
-  #     respond_to do |format|
-  #     #  format.html {render :index}
-  #       format.json  { render :json => {:events => @events, :invites => @invites}}
-  #     end
-  # @events = Event.find(params[:user_id]) if current_user
-  # render json: @events
      respond_to do |format|
         format.html {render :index}
-        format.json  { render json: @events}
+        format.json {render json: @events}
       end
-
-
+        # render json: @events
   end
 
 
@@ -60,7 +53,7 @@ class EventsController < ApplicationController
     @truehost = @host.user.id == current_user.id
     respond_to do |format|
       format.html {render :show}
-      format.json  { render :json => {:event => @event, :guests => @guests}}
+      format.json {render json: @event}
     end
   end
 
