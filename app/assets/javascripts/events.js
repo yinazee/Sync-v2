@@ -16,8 +16,9 @@ function listenForNewAjaxEventClick() {
 
 function getEvents() {
   $("#get-ajax-events").on("click", function(e) {
-  console.log('you just hit the next level')
+  console.log('you just hit events')
    e.preventDefault()
+   $(this).off('click');
     $.ajax({
      method: "GET",
      url: `${this.href}.json`
@@ -27,6 +28,7 @@ function getEvents() {
         let myEvent = new Event(event)
         let myEventHtml = myEvent.renderHTML()
         document.getElementById('ajax-events').innerHTML += myEventHtml
+
       })
     })
   })
@@ -52,7 +54,7 @@ class Event {
 
 
 function getEventShow(id) {
-  $(".get-event-show").on("click", function(e){
+  $(".get-event-show").one("click", function(e){
     console.log('you just hit an event show')
      e.preventDefault()
      $.ajax({
@@ -70,7 +72,7 @@ function getEventShow(id) {
   })
 }
 
-class Guest {
+class Guest{
   constructor(obj) {
     this.id = obj.id
     this.name = obj.name
@@ -88,9 +90,7 @@ class Guest {
 
 Guest.prototype.renderHTML = function () {
 
-
 	return (`
-    <h4><strong>Guests<strong></h4>
 			<h3>${this.name}</h3>
 			<p>${this.email}</p>
 	`)
