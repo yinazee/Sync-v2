@@ -1,18 +1,39 @@
-$(() => {
+$(function() {
   console.log('event.js is loaded...')
   listenForNewAjaxEventClick()
+  getNewEvent()
   getEvents()
   getEventShow()
 });
 
 
-//AJAX LINK For New Form//
+// AJAX LINK For New Form//
 function listenForNewAjaxEventClick() {
   $('#ajax-new-event').on('click', function(event) {
     event.preventDefault()
     $('#new-event-modal').modal('show');
   });
 }
+
+function getNewEvent(){
+  $('form').submit(function(event) {
+    //prevent form from submitting the default way
+    event.preventDefault();
+    let values = $(this).serialize();
+      $.post(`${this.action}`, values).done(function(data) {
+        console.log(data)
+
+      data.map(event => {
+        $('#app-container').html('')
+        const newEvent = new Event(data)
+        const htmlToAdd = newEvent.renderHTML()
+        $("app-container").html(htmlToAdd)
+      })
+
+    });
+  });
+}
+
 
 function getEvents() {
   $("#get-ajax-events").on("click", function(e) {
@@ -38,17 +59,26 @@ class Event {
   constructor(obj) {
     this.id = obj.id
     this.name = obj.name
+    this.location = obj.location
     this.description = obj.description
     this.guests = obj.guests
-    this.renderHTML = function () {
-        return(`
-          <div>
-          <p>${this.name}</p>
-          <p>${this.description}</p>
-          </div>
-        `)
-    };
+    // this.renderHTML = function () {
+    //     return(`
+    //       <div>
+    //       <p>${this.name}</p>
+    //       <p>${this.description}</p>
+    //       </div>
+    //     `)
+    // };
   };
+}
+
+Event.prototype.renderHTML = function () {
+	return (`
+			<h3>${this.name}</h3>
+      <p>${this.location}</p>
+			<p>${this.description}</p>
+	`)
 }
 
 
@@ -77,29 +107,20 @@ class Guest{
     this.id = obj.id
     this.name = obj.name
     this.email = obj.email
-    this.renderHTML = function () {
-        return(`
-          <div>
-          <p>${this.name}</p>
-          <p>${this.email}</p>
-          </div>
-        `)
-    };
+    // this.renderHTML = function () {
+    //     return(`
+    //       <div>
+    //       <p>${this.name}</p>
+    //       <p>${this.email}</p>
+    //       </div>
+    //     `)
+    // };
   };
 }
 
 Guest.prototype.renderHTML = function () {
-
 	return (`
 			<h3>${this.name}</h3>
 			<p>${this.email}</p>
 	`)
 }
-
-
-        // $('#event-show').html('')
-        // const parent = this.el.parentElement;
-        // console.log(parent.children);
-        // Array.prototype.forEach.call(parent.children, child => {
-        //   console.log(child)
-        // });

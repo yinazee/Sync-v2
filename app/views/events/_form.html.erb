@@ -1,6 +1,6 @@
 
 
-<%=form_for @event, url: {action: "create"} do |f|%>
+<%=form_for @event, id: "new-event", url: {action: "create"} do |f|%>
   <%= render 'shared/form_errors', target: @event %>
 
     <div class="form-group">
@@ -34,7 +34,7 @@
     <% end %>
       <br>
 
-    <div class="actions">
+    <div class="actions" id="submit-listener">
       <%= f.submit class: "btn btn-primary" %>
     </div>
 

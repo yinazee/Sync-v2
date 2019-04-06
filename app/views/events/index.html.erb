@@ -8,6 +8,8 @@
 
 <h4><%= link_to "Ajax New Event", new_user_event_path(@user), id: "ajax-new-event" %></h4>
 
+<h4><%= link_to "New Event", new_user_event_path(@user)%></h4>
+
 <!----------------------------------------------->
 
 <p><strong>Events You Created:</strong></p>
@@ -21,7 +23,7 @@
 <div id="ajax-events">
   <!--Events will show here-->
   </div>
-  
+
 <div id="event-show">
 <table class="table">
   <tbody>

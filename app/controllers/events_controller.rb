@@ -17,7 +17,6 @@ class EventsController < ApplicationController
         format.html {render :index}
         format.json {render json: @events}
       end
-        # render json: @events
   end
 
 
@@ -31,7 +30,6 @@ class EventsController < ApplicationController
       @event.host = current_user.host
       @users = User.all
 
-      # @event.guest_ids = params[:event][:guest]
       if !params[:event][:guest].blank?
           params[:event][:guest].each do |id|
             #finds guests and adds them to event's guest list
@@ -39,7 +37,8 @@ class EventsController < ApplicationController
             @event.save
             @user.host.events << @event
           end
-          redirect_to user_events_path, flash: {success: "#{@event.name} is created!"}
+           render json: @event, status: 201
+          # redirect_to user_events_path, flash: {success: "#{@event.name} is created!"}
       else
         render :new, flash: {danger: "Please enter all fields."}
       end
