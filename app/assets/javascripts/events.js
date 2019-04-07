@@ -1,19 +1,9 @@
 $(function() {
   console.log('event.js is loaded...')
-  listenForNewAjaxEventClick()
   getNewEvent()
   getEvents()
   getEventShow()
 });
-
-
-// AJAX LINK For New Form//
-function listenForNewAjaxEventClick() {
-  $('#ajax-new-event').on('click', function(event) {
-    event.preventDefault()
-    $('#new-event-modal').modal('show');
-  });
-}
 
 function getNewEvent(){
   $('form').submit(function(event) {
@@ -22,14 +12,11 @@ function getNewEvent(){
     let values = $(this).serialize();
       $.post(`${this.action}`, values).done(function(data) {
         console.log(data)
-
-      data.map(event => {
         $('#app-container').html('')
         const newEvent = new Event(data)
         const htmlToAdd = newEvent.renderHTML()
-        $("app-container").html(htmlToAdd)
-      })
 
+        $("#app-container").html(htmlToAdd)
     });
   });
 }
@@ -45,10 +32,11 @@ function getEvents() {
      url: `${this.href}.json`
     }).done(function(response){
       // console.log('the data is: ', response)
+      $('#app-container').html('')
       response.map(event => {
         let myEvent = new Event(event)
         let myEventHtml = myEvent.renderHTML()
-        document.getElementById('ajax-events').innerHTML += myEventHtml
+        document.getElementById('app-container').innerHTML += myEventHtml
 
       })
     })
@@ -74,10 +62,18 @@ class Event {
 }
 
 Event.prototype.renderHTML = function () {
+  let guests = this.guests.map(guest => {
+    return (`
+      <p>${guest.name}</p>
+      <p>${guest.description}</p>
+`)
+  }).join('')
 	return (`
 			<h3>${this.name}</h3>
       <p>${this.location}</p>
 			<p>${this.description}</p>
+      <p>${guests}</p>
+
 	`)
 }
 
@@ -93,7 +89,6 @@ function getEventShow(id) {
     }).done(function(response){
 
       response.guests.map(function(guest) {
-        // console.log(guest.user.name)
           let myGuest = new Guest(guest.user)
           let myGuestHtml = myGuest.renderHTML()
           document.getElementById('event-show').innerHTML += myGuestHtml
