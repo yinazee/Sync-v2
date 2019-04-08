@@ -29,7 +29,6 @@ class EventsController < ApplicationController
       @event = Event.create(event_params)
       @event.host = current_user.host
       @users = User.all
-
       if !params[:event][:guest].blank?
           params[:event][:guest].each do |id|
             #finds guests and adds them to event's guest list

@@ -1,5 +1,5 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :name, :location, :description
+  attributes :id, :name, :location, :date, :description
 
   has_many :guests
   has_many :event_guests
