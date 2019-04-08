@@ -22,7 +22,7 @@ function getNewEvent(){
 
 
 function getEvents() {
-  $("#get-ajax-events").on("click", function(e) {
+  $("#get-events").on("click", function(e) {
   console.log('you just hit events')
    e.preventDefault()
    $(this).off('click');

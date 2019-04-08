@@ -8,22 +8,14 @@
 
 <h4><%= link_to "New Event", new_user_event_path(@user)%></h4>
 
-<h4>  <%= link_to "Events You Created", user_events_path(current_user), id: "get-ajax-events" %> </h4>
+<h4>  <%= link_to "Events You Created", user_events_path(current_user), id: "get-events" %> </h4>
 
 
 <!----------------------------------------------->
 
 <p><strong>Events You Created:</strong></p>
 
-<div class="ajax-just-created">
 
-</div>
-
-<div id="ajax-events">
-  <!--Events will show here-->
-  </div>
-
-<div id="event-show">
 <table class="table">
   <tbody>
 
@@ -49,11 +41,7 @@
 
   </tbody>
 
-
-
-
 </table><br>
-  </div>
 
 <!-------------------------------------------------------->
 <p><strong>Your Events With All Guests Attending:</strong></p>
