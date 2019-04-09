@@ -47,6 +47,7 @@ class Event {
     this.id = obj.id
     this.name = obj.name
     this.location = obj.location
+    this.date = obj.date
     this.description = obj.description
     this.guests = obj.guests
     // this.renderHTML = function () {
@@ -70,6 +71,7 @@ Event.prototype.renderHTML = function () {
 	return (`
 			<h3>${this.name}</h3>
       <p>${this.location}</p>
+      <p>${this.date}</p>
 			<p>${this.description}</p>
       <p>${guests}</p>
 	`)
